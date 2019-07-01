@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>侦听器</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        姓：<input v-model="firstName">
+        名：<input v-model="lastName">
+        <!--<div>{{firstNmae}}{{lastName}}</div>-->
+
+        <!--如何把上面姓，名两个变量合成一个变量？把fullName定义成计算属性
+         fullName计算是通过 firstNmae 和 lastName 计算出来的 -->
+        <div>{{fullName}}</div>
+        <div>{{count}}</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data:{
+                firstName: '',
+                lastName: '',
+                count: 0
+            },
+            /*computed里面的属性叫做计算属性,如下fullName属性是由 firstName和lastName拼接而成
+            * 它有一个好处就是你如果重新使用fullName的时候，fullName不会重新去计算，而是去用
+            * 上一次firstName和lastName拼接而成的缓存值，性能是比较高的*/
+            computed:{
+                fullName: function () {
+                    return this.firstName + ' '+ this.lastName
+                }
+            },
+
+            /*侦听器，侦听某一个数据的变化，一旦某个数据发生了变化我就可以去做我的业务逻辑
+            * 这个地方我侦听的firstName和lastName，有没有更简单方法？？？ 那就是fullName*/
+            /*watch:{
+                firstName: function () {
+                    this.count ++
+                },
+                lastName: function () {
+                    this.count ++
+                }
+            }*/
+
+            /*更简单的方法就是直接侦听计算属性 fullName 属性，一旦它变化就 count++*/
+            watch:{
+                fullName: function () {
+                    this.count ++
+                }
+            }
+        });
+    </script>
+</body>
+</html>
