@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue实例中的事件以及方法的定义</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+
+
+    <div id="root">
+        <!--会报错，提示Property or method "alert" is not defined on the instance
+        but referenced during render-->
+        <!--<div v-on:click="()=>{alert(123)}">{{content}}</div>-->
+
+        <!--<div v-on:click="handleClick">{{content}}</div>-->
+        <!--简写  也就是说"v-on:"的简写就是@符号，看起来更简洁 -->
+        <div @click="handleClick">{{content}}</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            template: '',
+            data: {
+                content: "hello"
+            },
+
+            /*事件触发之后执行的方法写在vue实例里面methods方法里面*/
+            methods:{
+                handleClick: function () {
+                    /*vue要在点击之后改变dom的内容，不需要像传统方式一样去操作dom元素，只需要操作数据
+                    * 也就是说vue编程不是面向dom编程，而是面向数据编程，数据发生变化，页面即变化*/
+                    this.content = "world"
+                }
+            }
+        });
+    </script>
+</body>
+</html>
