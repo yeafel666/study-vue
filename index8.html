@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-if(控制dom的存在与否),v-show(控制dom的显示与否),v-for(控制一组数据，通过这组数据循环显示dom结构)</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- v-if模板指令内的变量的值是true，则该div标签显示，false便消失 -->
+        <!--<div v-if="show">hello world</div>-->
+
+        <!-- v-show和上面也是一样的效果，但是区别就在于用 v-show 的话不会把div清除掉，而是加上
+         display:none 的样式样式，如果需要频繁切换显示与隐藏，v-if 频繁的创建dom和销毁dom，性能更低，
+         这个时候 v-show 的性能更优，它不会频繁的创建dom和销毁dom，
+         但切换频率很低，只有一两次的需求，那么v-if是更好的选择  -->
+        <div v-show="show">hello world</div>
+        <button @click="handleClick">toggle</button>
+        <ul>
+            <!--key值可以加快v-for的渲染效率，但是要求key值不能重复,index是下标，用下标作为key更合适
+            ,但是如果需要频繁的对列表进行变更的时候，用index是存在问题的。 -->
+            <li v-for="(item,index) of list" :key="index">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: "#root",
+            data:{
+                show: true,
+                list: [1,2,3,3]
+            },
+            methods:{
+                handleClick:  function () {
+                    this.show = !this.show
+                }
+            }
+        });
+    </script>
+</body>
+</html>
