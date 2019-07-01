@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        姓：<input v-model="firstName">
+        名：<input v-model="lastName">
+        <!--<div>{{firstNmae}}{{lastName}}</div>-->
+
+        <!--如何把上面姓，名两个变量合成一个变量？把fullName定义成计算属性
+         fullName计算是通过 firstNmae 和 lastName 计算出来的 -->
+        <div>{{fullName}}</div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data:{
+                firstName: '',
+                lastName: ''
+            },
+            /*computed里面的属性叫做计算属性,如下fullName属性是由 firstName和lastName拼接而成
+            * 它有一个好处就是你如果重新使用fullName的时候，fullName不会重新去计算，而是去用
+            * 上一次firstName和lastName拼接而成的缓存值，性能是比较高的*/
+            computed:{
+                fullName: function () {
+                    return this.firstName + ' '+ this.lastName
+                }
+            }
+        });
+    </script>
+</body>
+</html>
