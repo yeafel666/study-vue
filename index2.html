@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text和v-html的区别以及插值表达式的介绍</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+
+
+    <div id="root">
+        <!--<h1>{{number}}</h1> -->  <!--{{number}}叫做插值表达式，也就是把number的值插入到h1标签中-->
+        <!--<h1 v-text="number"></h1> --> <!--表示h1之中的内容由number决定，v-text是vue的指令，指令里面的内容是变量-->
+
+
+        <!--v-text和v-html有什么区别？？  start -->
+        <!--<div v-text="content"></div>-->   <!--这时候页面显示“<h1>hello</h1>”是h1转义后的内容-->
+        <!--<div v-html="content"></div>-->      <!--这时候页面显示“hello”，h1这时候没有被转义。-->
+        <!--v-text和v-html有什么区别？？  end -->
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            template: '',
+            data: {
+                content: "<h1>hello</h1>"
+            }
+        });
+    </script>
+</body>
+</html>
