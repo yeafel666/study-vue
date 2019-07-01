@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性绑定</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- title属性和title数据项做一个绑定 （属性绑定） v-bind:是一个模板指令
+        "="号后面的内容不是字符串了，是一个表达式，里面的变量指的是实例里面data里面的title变量 -->
+        <!--<div v-bind:title=" 'yeafel ' + title">hello world</div>-->
+
+        <!--简写 “v-bind:”可以简写成“:” -->
+        <div :title=" 'yeafel ' + title">hello world</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data:{
+                title: "this is hello world"
+            }
+        });
+    </script>
+</body>
+</html>
