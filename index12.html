@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件与实例的关系</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input v-model="inputValue"/>
+        <button @click="handleSubmit">提交</button>
+        <ul>
+            <todo-item v-for="(item,index) of list" :key="index" :content="item">
+
+            </todo-item>
+        </ul>
+    </div>
+
+    <script>
+
+        /*
+        一个vue的组件相当于也是一个vue的实例,本例中大的Vue实例的挂载点下使用了一个小的vue实例
+        所以任何一个vue项目都是由千万个vue实例组成,所以每个组件里面也可以写methods，computed
+        */
+        Vue.component('todo-item',{
+            props:['content'],
+            template: '<li @click="handClick">{{content}}</li>',
+            methods: {
+                handClick:function () {
+                    alert('clicked')
+                }
+            }
+        })
+
+        /*那么，为什么根实例没有template模板呢？那是因为他默认把挂载点下的内容当做他的模板*/
+        new Vue({
+            el: "#root",
+            data:{
+                inputValue: '',
+                list: []
+            },
+            methods:{
+                handleSubmit:function () {
+                    this.list.push(this.inputValue)
+                    this.inputValue = ''
+                }
+            }
+        });
+    </script>
+</body>
+</html>
