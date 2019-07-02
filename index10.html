@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全局组件和局部组件</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input v-model="inputValue"/>
+        <button @click="handleSubmit">提交</button>
+        <ul>
+            <todo-item></todo-item>
+        </ul>
+    </div>
+
+    <script>
+
+        /*
+        定义个组件的名称todo-item,组件中可以有模板
+        * 通过Vue.component定义的组件叫做全局组件，
+        * 这种组件在任何地方都可以使用
+        */
+    /*    Vue.component('todo-item',{
+            template: '<li>item</li>'
+        })*/
+
+        /**
+         * 局部组件，需要在Vue实例里面做一个组件的声明
+         * @type {{template: string}}
+         */
+        var TodoItem = {
+            template: '<li>item</li>'
+        };
+
+        new Vue({
+            el: "#root",
+            //局部组件的注册,这时候就可以在外部使用todo-item标签从而使用组件中的模板了
+            components:{
+              'todo-item': TodoItem
+            },
+            data:{
+                inputValue: '',
+                list: []
+            },
+            methods:{
+                handleSubmit:function () {
+                    this.list.push(this.inputValue)
+                    this.inputValue = ''
+                }
+            }
+        });
+    </script>
+</body>
+</html>
