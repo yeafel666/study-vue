@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist组件拆分</title>
+    <!--把vue的script引入标签放在head标签里面可以防止页面出现抖屏的情况-->
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <input v-model="inputValue"/>
+        <button @click="handleSubmit">提交</button>
+        <ul>
+            <todo-item v-for="(item,index) of list" :key="index" :content="item">
+
+            </todo-item>
+        </ul>
+    </div>
+
+    <script>
+
+        Vue.component('todo-item',{
+            props:['content'],
+            template: '<li>{{content}}</li>'
+        })
+
+        new Vue({
+            el: "#root",
+            data:{
+                inputValue: '',
+                list: []
+            },
+            methods:{
+                handleSubmit:function () {
+                    this.list.push(this.inputValue)
+                    this.inputValue = ''
+                }
+            }
+        });
+    </script>
+</body>
+</html>
